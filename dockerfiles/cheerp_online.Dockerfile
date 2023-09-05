@@ -11,7 +11,7 @@ RUN apt-get -y install apt-utils gcc nodejs \
 #    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 84540D4B9BF457D5 && \
 #    apt-get update && apt-get -y install cheerp-core && \
 #	 mkdir /data
-RUN python3 -m pip install conan==1.56 && \
+RUN python3 -m pip install conan==1.60 && \
   conan config install https://github.com/ultimaker/conan-config.git && \
   conan profile new default --detect --force && \
   mkdir /home/user/CuraEngine/ && \
