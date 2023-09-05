@@ -7,9 +7,9 @@ RUN apt-get -y install apt-utils gcc nodejs \
 	dbus base whiptail hexedit patch clang \
 	wamerican ucf manpages file make ninja-build \
 	dialog curl less cowsay netcat-openbsd
-RUN echo 'deb http://ppa.launchpad.net/leaningtech-dev/cheerp-ppa/ubuntu focal main' > /etc/apt/sources.list && \
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 84540D4B9BF457D5 && \
-    apt-get update && apt-get -y install cheerp-core && \ 
+#RUN echo 'deb http://ppa.launchpad.net/leaningtech-dev/cheerp-ppa/ubuntu focal main' > /etc/apt/sources.list && \
+#    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 84540D4B9BF457D5 && \
+#    apt-get update && apt-get -y install cheerp-core && \ #
 	mkdir /data
 RUN python3 -m pip install conan==1.56 && \
   conan config install https://github.com/ultimaker/conan-config.git && \
