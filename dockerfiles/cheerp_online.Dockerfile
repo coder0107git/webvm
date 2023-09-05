@@ -14,8 +14,8 @@ RUN apt-get -y install apt-utils gcc nodejs \
 RUN python3 -m pip install conan==1.60 pyyaml>=6 && \
   conan config install https://github.com/ultimaker/conan-config.git && \
   conan profile new default --detect --force && \
-  mkdir /home/user/CuraEngine/ && \
-  curl https://github.com/Ultimaker/CuraEngine/archive/refs/tags/5.4.0.tar.gz | tar -xz -C /home/user/CuraEngine/ # && \
+  mkdir -p /mnt/data/CuraEngine/ && \
+  curl https://github.com/Ultimaker/CuraEngine/archive/refs/tags/5.4.0.tar.gz | tar -xz -C /mnt/data/CuraEngine/
   #cd /home/user/CuraEngine && conan install . --build=missing --update
 
 RUN useradd -m user && echo "user:password" | chpasswd
