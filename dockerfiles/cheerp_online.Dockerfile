@@ -16,7 +16,7 @@ RUN python3 -m pip install conan==1.56 && \
   conan profile new default --detect --force && \
   mkdir /home/user/CuraEngine/ && \
   curl https://github.com/Ultimaker/CuraEngine/archive/refs/tags/5.4.0.tar.gz | tar -xz -C /home/user/CuraEngine/ && \
-  cd /home/user/CuraEngine && conan install . --build=missing --update
+  #cd /home/user/CuraEngine && conan install . --build=missing --update
 
 RUN useradd -m user && echo "user:password" | chpasswd
 COPY --chown=user:user ./dockerfiles/assets/cheerp_online /home/user/
