@@ -22,9 +22,9 @@ COPY --chown=user:user ./dockerfiles/assets/cheerp_online /home/user/
 RUN python3 -m pip install conan==1.60.2 && \
   conan config install https://github.com/ultimaker/conan-config.git && \
   conan profile new default --detect --force && \
-  mkdir -p /mnt/data/CuraEngine/ && \
-  curl -L https://github.com/Ultimaker/CuraEngine/archive/refs/tags/5.4.0.tar.gz | tar -xz -C /mnt/data/CuraEngine/ && \
-  cd /mnt/data/CuraEngine && conan install . --build=missing --update && \
+  mkdir -p /mnt/data/ && \
+  curl -L https://github.com/Ultimaker/CuraEngine/archive/refs/tags/5.4.0.tar.gz | tar -xz -C /mnt/data/ && \
+  cd /mnt/data/CuraEngine-5.4.0 && conan install . --build=missing --update && \
   cd /
 
 # We set WORKDIR, as this gets extracted by Webvm to be used as the cwd. This is optional.
