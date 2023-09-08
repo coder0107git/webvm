@@ -13,7 +13,7 @@ RUN apt-get -y install apt-utils gcc nodejs \
 #	 mkdir /data
 RUN git clone https://github.com/conan-io/conan.git conan_src && \
   cd conan_src && \
-  python -m pip install -e . && cd ../ && \
+  python3 -m pip install -e . && cd ../ && \
   conan config install https://github.com/ultimaker/conan-config.git && \
   conan profile new default --detect --force && \
   mkdir -p /mnt/data/CuraEngine/ && \
