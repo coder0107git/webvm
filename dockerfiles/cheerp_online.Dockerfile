@@ -17,7 +17,7 @@ RUN curl -L https://github.com/conan-io/conan/archive/refs/tags/1.60.2.tar.gz | 
   conan config install https://github.com/ultimaker/conan-config.git && \
   conan profile new default --detect --force && \
   mkdir -p /mnt/data/CuraEngine/ && \
-  curl https://github.com/Ultimaker/CuraEngine/archive/refs/tags/5.4.0.tar.gz | tar -xz -C /mnt/data/CuraEngine/
+  curl -L https://github.com/Ultimaker/CuraEngine/archive/refs/tags/5.4.0.tar.gz | tar -xz -C /mnt/data/CuraEngine/
   #cd /home/user/CuraEngine && conan install . --build=missing --update
 
 RUN useradd -m user && echo "user:password" | chpasswd
