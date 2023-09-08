@@ -11,7 +11,7 @@ RUN apt-get -y install apt-utils gcc nodejs \
 #    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 84540D4B9BF457D5 && \
 #    apt-get update && apt-get -y install cheerp-core && \
 #	 mkdir /data
-RUN curl https://github.com/conan-io/conan/archive/refs/tags/1.60.2.zip | tar -xz  && \
+RUN curl https://github.com/conan-io/conan/archive/refs/tags/1.60.2.tar.gz | tar -xz  && \
   cd conan-1.60.2 && \
   python3 -m pip install -e . && cd ../ && \
   conan config install https://github.com/ultimaker/conan-config.git && \
