@@ -15,19 +15,19 @@ RUN git clone https://github.com/Ultimaker/CuraEngine.git
 # install protobuf
 RUN unzip protobuf-all-3.5.0.zip
 WORKDIR "/protobuf-3.5.0"
-RUN ./autogen.sh && ./configure && make && make install && ldconfig
+#RUN ./autogen.sh && ./configure && make && make install && ldconfig
 
 # install libArcus
 WORKDIR "/libArcus"
 RUN git pull
 RUN git checkout 4.4
-RUN mkdir build && cd build && cmake .. && make && make install
+#RUN mkdir build && cd build && cmake .. && make && make install
 
 # install curaengine
 WORKDIR "/CuraEngine"
 RUN git pull
 RUN git checkout 4.4
-RUN mkdir build && cd build && cmake .. && make
+#RUN mkdir build && cd build && cmake .. && make
 
 RUN useradd -m user && echo "user:password" | chpasswd
 COPY --chown=user:user ./dockerfiles/assets/cheerp_online /home/user/
