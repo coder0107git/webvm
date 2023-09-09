@@ -19,7 +19,7 @@ COPY --chown=user:user ./dockerfiles/assets/cheerp_online /home/user/
 #RUN curl -L https://github.com/conan-io/conan/archive/refs/tags/1.60.2.tar.gz | tar -xz && \
 #  cd conan-1.60.2 && \
 #  python3 -m pip install -e . && cd ../ && \
-RUN python3 -m pip install conan==1.60.2 && \
+RUN python3 -m pip install conan==1.60.2 --break-system-packages && \
   conan config install https://github.com/ultimaker/conan-config.git && \
   conan profile new default --detect --force && \
   mkdir -p /mnt/data/ && \
