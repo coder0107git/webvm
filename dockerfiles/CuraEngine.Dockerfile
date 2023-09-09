@@ -7,30 +7,35 @@ RUN apt-get -y install git wget nano \
   g++ unzip cmake python3 python3-dev \
   python3-sip-dev
 
-RUN wget https://github.com/google/protobuf/releases/download/v3.5.0/protobuf-all-3.5.0.zip
+RUN useradd -m user && echo "user:password" | chpasswd
+COPY --chown=user:user ./dockerfiles/assets/cheerp_online /home/user/
 
-RUN git clone https://github.com/Ultimaker/libArcus.git
-RUN git clone https://github.com/Ultimaker/CuraEngine.git
+RUN mkdir -p /home/user/sources && cd /home/user/sources && \
+  wget https://github.com/google/protobuf/releases/download/v3.5.0/protobuf-all-3.5.0.zip && \
+  unzip protobuf-all-3.5.0.zip && cd protobuf-all-3.5.0 && \
+  chmod +x ./autogen.sh ./configure && cd ../ && \
+  git clone https://github.com/Ultimaker/libArcus.git && \
+  cd libArcus && git pull && git checkout 4.4 && cd ../ && \
+  git clone https://github.com/Ultimaker/CuraEngine.git && \
+  cd CuraEngine && git pull && git checkout 4.4 && cd ../../
 
 # install protobuf
-RUN unzip protobuf-all-3.5.0.zip
-WORKDIR "/protobuf-3.5.0"
+#RUN unzip protobuf-all-3.5.0.zip
+#WORKDIR "/protobuf-3.5.0"
 #RUN ./autogen.sh && ./configure && make && make install && ldconfig
 
 # install libArcus
-WORKDIR "/libArcus"
-RUN git pull
-RUN git checkout 4.4
+#WORKDIR "/libArcus"
+#RUN git pull
+#RUN git checkout 4.4
 #RUN mkdir build && cd build && cmake .. && make && make install
 
 # install curaengine
-WORKDIR "/CuraEngine"
-RUN git pull
-RUN git checkout 4.4
+#WORKDIR "/CuraEngine"
+#RUN git pull
+#RUN git checkout 4.4
 #RUN mkdir build && cd build && cmake .. && make
 
-RUN useradd -m user && echo "user:password" | chpasswd
-COPY --chown=user:user ./dockerfiles/assets/cheerp_online /home/user/
 # We set WORKDIR, as this gets extracted by Webvm to be used as the cwd. This is optional.
 WORKDIR /home/user/
 # We set env, as this gets extracted by Webvm. This is optional.
