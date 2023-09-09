@@ -12,7 +12,7 @@ COPY --chown=user:user ./dockerfiles/assets/cheerp_online /home/user/
 
 RUN mkdir -p /home/user/sources && cd /home/user/sources && \
   wget https://github.com/google/protobuf/releases/download/v3.5.0/protobuf-all-3.5.0.zip && \
-  unzip protobuf-all-3.5.0.zip && cd protobuf-all-3.5.0 && \
+  unzip protobuf-all-3.5.0.zip && cd protobuf-3.5.0 && \
   chmod +x ./autogen.sh ./configure && cd ../ && \
   git clone https://github.com/Ultimaker/libArcus.git && \
   cd libArcus && git pull && git checkout 4.4 && cd ../ && \
