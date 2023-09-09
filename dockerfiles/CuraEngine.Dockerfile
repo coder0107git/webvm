@@ -5,7 +5,7 @@ RUN apt-get clean && apt-get update && apt-get -y upgrade
 RUN apt-get -y install git wget nano \
   autoconf automake libtool curl make \
   g++ unzip cmake python3 python3-dev \
-  python3-sip-dev sh
+  python3-sip-dev
 
 RUN useradd -m user && echo "user:password" | chpasswd
 COPY --chown=user:user ./dockerfiles/assets/cheerp_online /home/user/
