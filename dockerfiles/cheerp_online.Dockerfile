@@ -3,7 +3,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get clean && apt-get update && apt-get -y upgrade
 RUN apt-get -y install apt-utils gcc nodejs \
 	python3 python3-pip unzip git nano cmake \
-	software-properties-common fakeroot \
+	software-properties-common fakeroot gcc-multilib \
 	dbus base whiptail hexedit patch clang \
 	wamerican ucf manpages file make ninja-build \
 	dialog curl less cowsay netcat-openbsd
