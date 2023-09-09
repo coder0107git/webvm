@@ -50,4 +50,4 @@ WORKDIR /home/user/
 ENV HOME="/home/user" TERM="xterm" USER="user" SHELL="/bin/bash" EDITOR="nano" LANG="en_US.UTF-8" LC_ALL="C"
 RUN echo 'root:password' | chpasswd && \
   chmod -R 777 /home/user
-CMD [ "/bin/bash -i" ]
+CMD [ "/bin/bash", "-i" ]
