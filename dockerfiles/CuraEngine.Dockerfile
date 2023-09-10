@@ -2,7 +2,7 @@
 FROM --platform=i386 i386/ubuntu:18.04
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get clean && apt-get update && apt-get -y upgrade
-RUN sudo apt autoremove --purge snapd && \
+RUN apt autoremove --purge snapd && \
   apt-get -y install git wget nano \
   autoconf automake libtool curl make \
   g++ unzip cmake python3 python3-dev \
