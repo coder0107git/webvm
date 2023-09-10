@@ -6,7 +6,7 @@ RUN apt autoremove --purge snapd && \
   apt-get -y install git wget nano \
   autoconf automake libtool curl make \
   g++ unzip cmake python3 python3-dev \
-  python3-sip-dev snapd
+  python3-sip-dev
 
 RUN useradd -m user && echo "user:password" | chpasswd
 COPY --chown=user:user ./dockerfiles/assets/cheerp_online /home/user/
@@ -25,14 +25,13 @@ RUN mkdir -p /tmp/sources && cd /tmp/sources/ && \
   wget https://github.com/google/protobuf/releases/download/v3.5.0/protobuf-all-3.5.0.zip && \
   unzip protobuf-all-3.5.0.zip && rm protobuf-all-3.5.0.zip && \
   git clone https://github.com/Ultimaker/libArcus.git && \
-  git clone https://github.com/Ultimaker/CuraEngine.git && \
-  (snap install prusa-slicer && echo 'Installed PrusaSlicer')
+  git clone https://github.com/Ultimaker/CuraEngine.git
 
 # install protobuf
 #RUN unzip protobuf-all-3.5.0.zip
 #WORKDIR "/tmp/sources/protobuf-3.5.0"
 RUN cd /tmp/sources/protobuf-3.5.0 && \
- ./autogen.sh && ./configure && make && \
+  ./autogen.sh && ./configure && make && \
   make install && ldconfig && \
   rm -rf /tmp/sources/protobuf-3.5.0
 
