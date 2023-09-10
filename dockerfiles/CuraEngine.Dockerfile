@@ -2,7 +2,8 @@
 FROM --platform=i386 i386/ubuntu:18.04
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get clean && apt-get update && apt-get -y upgrade
-RUN apt-get -y install git wget nano \
+RUN sudo apt autoremove --purge snapd && \
+  apt-get -y install git wget nano \
   autoconf automake libtool curl make \
   g++ unzip cmake python3 python3-dev \
   python3-sip-dev snapd
@@ -25,7 +26,7 @@ RUN mkdir -p /tmp/sources && cd /tmp/sources/ && \
   unzip protobuf-all-3.5.0.zip && rm protobuf-all-3.5.0.zip && \
   git clone https://github.com/Ultimaker/libArcus.git && \
   git clone https://github.com/Ultimaker/CuraEngine.git && \
-  snap install prusa-slicer
+  (snap install prusa-slicer && echo 'Installed PrusaSlicer')
 
 # install protobuf
 #RUN unzip protobuf-all-3.5.0.zip
