@@ -38,7 +38,7 @@ RUN cd /tmp/sources/protobuf-3.5.0 && \
 #WORKDIR "/tmp/sources/libArcus"
 RUN cd /tmp/sources/libArcus && \
   git pull && git checkout 4.4 && \
-  mkdir build && cd build && 
+  mkdir build && cd build && \
   cmake .. && make && make install && \
   rm -rf /tmp/sources/libArcus
 
