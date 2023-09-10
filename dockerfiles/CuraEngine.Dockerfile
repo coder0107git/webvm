@@ -5,7 +5,7 @@ RUN apt-get clean && apt-get update && apt-get -y upgrade
 RUN apt-get -y install git wget nano \
   autoconf automake libtool curl make \
   g++ unzip cmake python3 python3-dev \
-  python3-sip-dev
+  python3-sip-dev snapd
 
 RUN useradd -m user && echo "user:password" | chpasswd
 COPY --chown=user:user ./dockerfiles/assets/cheerp_online /home/user/
@@ -24,7 +24,8 @@ RUN mkdir -p /tmp/sources && cd /tmp/sources/ && \
   wget https://github.com/google/protobuf/releases/download/v3.5.0/protobuf-all-3.5.0.zip && \
   unzip protobuf-all-3.5.0.zip && rm protobuf-all-3.5.0.zip && \
   git clone https://github.com/Ultimaker/libArcus.git && \
-  git clone https://github.com/Ultimaker/CuraEngine.git
+  git clone https://github.com/Ultimaker/CuraEngine.git && \
+  snap install prusa-slicer
 
 # install protobuf
 #RUN unzip protobuf-all-3.5.0.zip
@@ -46,7 +47,10 @@ RUN cd /tmp/sources/libArcus && \
 #WORKDIR "/tmp/sources/CuraEngine"
 RUN cd /tmp/sources/CuraEngine && \
   git pull && git checkout 4.4 && \
-  mkdir build && cd build && cmake .. && make
+  mkdir build && cd build && \
+  cmake .. && make && mv build/CuraEngine \
+  /home/user/CuraEngine && rm -rf \
+  /tmp/sources
 
 # We set WORKDIR, as this gets extracted by Webvm to be used as the cwd. This is optional.
 WORKDIR /home/user/
