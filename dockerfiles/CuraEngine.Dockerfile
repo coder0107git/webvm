@@ -9,7 +9,6 @@ RUN apt-get -y install git wget nano \
 
 RUN useradd -m user && echo "user:password" | chpasswd
 COPY --chown=user:user ./dockerfiles/assets/cheerp_online /home/user/
-RUN mkdir -p /home/user/sources
 
 #RUN mkdir -p /home/user/sources && cd /home/user/sources && \
 #  wget https://github.com/google/protobuf/releases/download/v3.5.0/protobuf-all-3.5.0.zip && \
@@ -21,27 +20,32 @@ RUN mkdir -p /home/user/sources
 #  cd CuraEngine && git pull && git checkout 4.4 && cd ../../ && \
 #  chmod -R 777 /home/user
 
-WORKDIR "/home/user/sources"
-RUN wget https://github.com/google/protobuf/releases/download/v3.5.0/protobuf-all-3.5.0.zip && \
-  unzip protobuf-all-3.5.0.zip && \
+RUN mkdir -p /tmp/sources && cd /tmp/sources/ && \
+  wget https://github.com/google/protobuf/releases/download/v3.5.0/protobuf-all-3.5.0.zip && \
+  unzip protobuf-all-3.5.0.zip && rm protobuf-all-3.5.0.zip && \
   git clone https://github.com/Ultimaker/libArcus.git && \
   git clone https://github.com/Ultimaker/CuraEngine.git
 
 # install protobuf
 #RUN unzip protobuf-all-3.5.0.zip
-WORKDIR "/home/user/sources/protobuf-3.5.0"
-RUN ./autogen.sh && ./configure && make && \
-  make install && ldconfig
+#WORKDIR "/tmp/sources/protobuf-3.5.0"
+RUN cd /tmp/sources/protobuf-3.5.0 && \
+ ./autogen.sh && ./configure && make && \
+  make install && ldconfig && \
+  rm -rf /tmp/sources/protobuf-3.5.0
 
 # install libArcus
-WORKDIR "/home/user/sources/libArcus"
-RUN git pull && git checkout 4.4 && \
-  mkdir build && cd build && cmake .. && \
-  make && make install
+#WORKDIR "/tmp/sources/libArcus"
+RUN cd /tmp/sources/libArcus && \
+  git pull && git checkout 4.4 && \
+  mkdir build && cd build && 
+  cmake .. && make && make install && \
+  rm -rf /tmp/sources/libArcus
 
 # install curaengine
-WORKDIR "/home/user/sources/CuraEngine"
-RUN git pull && git checkout 4.4 && \
+#WORKDIR "/tmp/sources/CuraEngine"
+RUN cd /tmp/sources/CuraEngine && \
+  git pull && git checkout 4.4 && \
   mkdir build && cd build && cmake .. && make
 
 # We set WORKDIR, as this gets extracted by Webvm to be used as the cwd. This is optional.
@@ -49,5 +53,5 @@ WORKDIR /home/user/
 # We set env, as this gets extracted by Webvm. This is optional.
 ENV HOME="/home/user" TERM="xterm" USER="user" SHELL="/bin/bash" EDITOR="nano" LANG="en_US.UTF-8" LC_ALL="C"
 RUN echo 'root:password' | chpasswd && \
-  chmod -R 777 /home/user
+  chmod -R 777 /home/user /tmp/
 CMD [ "/bin/bash", "-i" ]
